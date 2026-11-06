@@ -1,0 +1,2 @@
+ここにゲーム内で撮影したマップ画像を配置します。
+例：world.jpg / diamond-shores.jpg / gylden-ruins.jpg / astron-plains.jpg
