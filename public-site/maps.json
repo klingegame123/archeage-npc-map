@@ -1,0 +1,30 @@
+{
+  "maps": [
+    {
+      "id": "coast",
+      "name": "輝く海岸（全体）",
+      "image": "images/kagayaku_coast_overview.png",
+      "parent": null
+    },
+    {
+      "id": "coast_north",
+      "name": "輝く海岸・北岸（詳細）",
+      "image": "images/kagayaku_coast_detail_01.png",
+      "parent": "coast",
+      "overviewPoint": {
+        "x": 805,
+        "y": 183
+      }
+    },
+    {
+      "id": "coast_inland",
+      "name": "輝く海岸・内陸（詳細）",
+      "image": "images/kagayaku_coast_detail_02.png",
+      "parent": "coast",
+      "overviewPoint": {
+        "x": 615,
+        "y": 545
+      }
+    }
+  ]
+}
