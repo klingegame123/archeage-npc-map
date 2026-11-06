@@ -12,8 +12,8 @@
       "image": "images/kagayaku_coast_detail_01.png",
       "parent": "coast",
       "overviewPoint": {
-        "x": 805,
-        "y": 183
+        "x": 995,
+        "y": 346
       }
     },
     {
@@ -22,8 +22,8 @@
       "image": "images/kagayaku_coast_detail_02.png",
       "parent": "coast",
       "overviewPoint": {
-        "x": 615,
-        "y": 545
+        "x": 964,
+        "y": 505
       }
     }
   ]
