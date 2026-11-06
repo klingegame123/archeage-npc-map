@@ -1,220 +1,123 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ArcheAge Chronicles NPC Map</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<style>
-:root{color-scheme:dark;--bg:#101820;--panel:#1b2833;--line:#344653;--text:#edf3f7;--muted:#a9bac6;--accent:#d8b36a}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,sans-serif}
-header{padding:14px 18px;background:#17232d;border-bottom:1px solid var(--line)}
-header h1{font-size:19px;margin:0}header p{margin:3px 0 0;color:var(--muted);font-size:12px}
-main{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:12px;padding:12px;max-width:1500px;margin:auto}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;min-width:0}
-.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
-button,select,input{font:inherit;color:var(--text);background:#101a22;border:1px solid var(--line);border-radius:7px;padding:9px}
-button{cursor:pointer}button:hover{border-color:var(--accent)}button:disabled{opacity:.45;cursor:default}
-#breadcrumbs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
-#breadcrumbs button{font-size:12px;padding:5px 8px}
-#map{height:min(70vh,760px);min-height:420px;background:#0c141b;border-radius:8px;overflow:hidden}
-#side{display:flex;flex-direction:column;gap:10px}
-#search{width:100%}.filters{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-#results{overflow:auto;max-height:55vh}
-.result{border:1px solid var(--line);border-radius:8px;padding:9px;margin:7px 0;background:#14212b;cursor:pointer}
-.result:hover{border-color:var(--accent)}.result strong{display:block}.muted{color:var(--muted);font-size:12px}
-#coord{font-size:12px;color:var(--muted);margin:8px 0 0;overflow-wrap:anywhere}
-#notice{font-size:12px;color:var(--muted);margin:0}
-.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#1b2833;color:#edf3f7}
-@media(max-width:850px){main{grid-template-columns:1fr}#map{height:55vh;min-height:350px}#results{max-height:35vh}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ArcheAge Chronicles | NPCマップ</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0b111a;--panel:#121c29;--panel2:#192536;--line:#2e4054;--text:#edf3fa;--muted:#9fb2c5;--gold:#e9c77f;--blue:#6fb4e9;--shadow:0 12px 38px rgba(0,0,0,.35)}
+    *{box-sizing:border-box} body{margin:0;font:14px/1.6 system-ui,-apple-system,"Segoe UI","Noto Sans JP",sans-serif;background:var(--bg);color:var(--text)}
+    button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+    .app{min-height:100vh;display:flex;flex-direction:column}.header{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid var(--line);background:rgba(18,28,41,.95)}
+    .brand small{display:block;color:var(--muted);font-size:11px;letter-spacing:.16em}.brand strong{font-size:18px;letter-spacing:.03em}.header-note{font-size:12px;color:var(--muted)}
+    .layout{display:grid;grid-template-columns:minmax(300px,350px) minmax(0,1fr);gap:0;flex:1;min-height:0}.sidebar{background:var(--panel);border-right:1px solid var(--line);padding:18px;display:flex;flex-direction:column;gap:14px;max-height:calc(100vh - 65px);overflow-y:auto}
+    h2,h3,p{margin-top:0}h2{font-size:19px;margin-bottom:4px}h3{font-size:14px;margin-bottom:8px}.desc,.hint{color:var(--muted);font-size:12px}.section{border:1px solid var(--line);border-radius:12px;background:#152131;padding:14px}.stack{display:grid;gap:8px}.flex{display:flex;gap:8px;align-items:center}.flex>*{min-width:0}.space-between{justify-content:space-between}
+    .btn{background:#23364d;border:1px solid #39536c;color:var(--text);border-radius:9px;padding:9px 11px;transition:.15s}.btn:hover{background:#324963}.btn.primary{background:#3b6689;border-color:#659bc1}.btn.ghost{background:transparent}.btn.gold{background:#74582b;border-color:#a58449}.btn:disabled{opacity:.45;cursor:not-allowed}.btn.small{font-size:12px;padding:6px 9px}
+    .pill{display:inline-block;padding:2px 8px;border-radius:50px;background:#253a50;color:#c7d6e3;font-size:11px}.maplist{display:grid;gap:7px}.map-choice{width:100%;text-align:left;border:1px solid var(--line);background:#142030;padding:10px 11px;border-radius:10px;color:var(--text)}.map-choice[aria-current=true]{border-color:var(--gold);background:#2b2a29}.map-choice span{display:block;color:var(--muted);font-size:11px}
+    input,select,textarea{width:100%;background:#0e1825;border:1px solid #375068;border-radius:8px;padding:9px 10px;color:var(--text)}textarea{resize:vertical;min-height:62px}.input-label{font-size:12px;color:#c5d5e4;display:block;margin:7px 0 3px}
+    .map-shell{position:relative;min-height:640px;height:calc(100vh - 65px);overflow:hidden;background:radial-gradient(ellipse,#263443 0%,#0c131d 75%)}
+    .toolbar{z-index:5;position:absolute;top:14px;left:14px;right:14px;display:flex;align-items:center;justify-content:space-between;gap:8px;pointer-events:none}.toolbar>*{pointer-events:auto}.overlay-title{background:rgba(8,16,26,.88);border:1px solid #4d6074;border-radius:10px;padding:8px 12px;box-shadow:var(--shadow);font-weight:650;max-width:62%}
+    .zoom{display:flex;gap:5px}.viewport{width:100%;height:100%;overflow:hidden;position:relative;touch-action:none;cursor:grab;user-select:none}.viewport.grabbing{cursor:grabbing}.viewport.adding{cursor:crosshair}.stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;will-change:transform}.stage img{display:block;width:1920px;height:1080px;max-width:none;pointer-events:none;user-select:none}.marker{position:absolute;transform:translate(-50%,-100%);border:0;border-radius:22px 22px 22px 0;background:#f9c766;color:#1e1c12;padding:7px 10px;box-shadow:0 3px 14px #000a;font-weight:800;white-space:nowrap;z-index:2;max-width:400px;transform-origin:bottom center}.marker:hover{filter:brightness(1.13)}.marker:after{content:"";position:absolute;left:50%;bottom:-9px;transform:translateX(-50%);border-left:7px solid transparent;border-right:7px solid transparent;border-top:10px solid #f9c766}.marker.npc{background:#67c8ff}.marker.npc:after{border-top-color:#67c8ff}.marker.jump{background:#eac983}.marker.jump:after{border-top-color:#eac983}
+    .map-footer{position:absolute;z-index:5;bottom:14px;left:14px;right:14px;display:flex;justify-content:space-between;gap:8px;pointer-events:none}.map-footer span{background:#08111ad9;border:1px solid #344a5b;border-radius:9px;padding:6px 10px;color:#d2e1ed;font-size:12px}
+    .npc-items{display:grid;gap:7px;max-height:220px;overflow:auto}.npc-item{border:1px solid #34475a;background:#101c2a;text-align:left;color:var(--text);padding:9px 10px;border-radius:9px}.npc-item:hover{background:#1d3044}.npc-item small{display:block;color:var(--muted)}.empty{padding:15px;color:var(--muted);text-align:center;border:1px dashed var(--line);border-radius:9px}.form-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.status{font-size:12px;color:var(--gold);min-height:18px}.hidden{display:none!important}.spacer{flex:1}
+    @media(max-width:800px){.header{padding:10px 12px}.header-note{display:none}.layout{display:flex;flex-direction:column}.sidebar{max-height:none;overflow:visible;padding:12px;gap:10px;border-right:0;border-bottom:1px solid var(--line)}.map-shell{height:58vh;min-height:360px;order:-1}.toolbar{top:9px;left:8px;right:8px}.overlay-title{font-size:12px;padding:7px 9px}.zoom .btn{padding:6px 8px}.map-footer{left:8px;bottom:8px;right:8px}.map-footer span{font-size:10px}.sidebar{order:2}.header strong{font-size:15px}}
+  </style>
 </head>
 <body>
-<header>
-  <h1>ArcheAge Chronicles — NPC Map</h1>
-  <p>Auroria / NPC・施設・探索情報データベース</p>
-</header>
-<main>
-  <section class="panel">
-    <div class="toolbar">
-      <button id="backBtn" disabled>← ひとつ戻る</button>
-      <span id="areaTitle">マップを読み込み中…</span>
-    </div>
-    <nav id="breadcrumbs"></nav>
-    <div id="map"></div>
-    <p id="coord">マップをクリックすると画像上の座標を取得します。</p>
-  </section>
-  <aside id="side">
-    <section class="panel">
-      <input id="search" placeholder="NPC名・場所・メモで検索">
-      <div class="filters" style="margin-top:8px">
-        <select id="category"><option value="">すべての種類</option></select>
-        <select id="sort">
-          <option value="name">名前順</option>
-          <option value="category">種類順</option>
-          <option value="areaName">エリア順</option>
-        </select>
-      </div>
-      <p id="count" class="muted">読み込み中…</p>
-      <div id="results"></div>
+<div class="app">
+  <header class="header">
+    <div class="brand"><small>ARCHEAGE CHRONICLES · FAN MAP</small><strong>NPC位置管理マップ</strong></div>
+    <span class="header-note">試作版 v2 · 公開前でもローカルで動作</span>
+  </header>
+  <main class="layout">
+    <aside class="sidebar">
+      <div><h2>輝く海岸</h2><p class="desc">全体図と拡大図を切り替えられます。将来、ほかのエリアも追加できます。</p></div>
+      <section class="section stack">
+        <h3>マップを選択</h3><div id="mapList" class="maplist"></div>
+        <span class="hint">全体図の黄色い案内からも詳細図へ進めます。案内位置は仮置きです。</span>
+      </section>
+      <section class="section stack">
+        <div class="flex space-between"><h3 style="margin:0">NPCを探す</h3><span id="count" class="pill">0 件</span></div>
+        <input id="search" type="search" placeholder="NPC名・場所・メモで検索" aria-label="NPC検索">
+        <div class="flex"><select id="filter" aria-label="カテゴリーで絞り込み"><option value="">すべてのカテゴリー</option><option>商人</option><option>クエスト</option><option>職人</option><option>その他</option></select><select id="sort" aria-label="並べ替え"><option value="name">名前順</option><option value="area">マップ順</option><option value="category">分類順</option></select></div>
+        <div id="npcList" class="npc-items"></div>
+      </section>
+      <section class="section stack">
+        <h3>NPCを登録・編集</h3>
+        <div class="flex"><button id="newBtn" class="btn primary" type="button">＋ ピンを追加</button><button id="cancelBtn" class="btn ghost hidden" type="button">キャンセル</button></div>
+        <span id="registerHelp" class="hint">「ピンを追加」を押し、マップ上の登録したい位置をクリックしてください。</span>
+        <form id="npcForm" class="hidden" autocomplete="off">
+          <p class="hint" id="coords"></p>
+          <label class="input-label" for="npcName">NPC名 *</label><input id="npcName" name="name" required maxlength="100" placeholder="例：NPCの名前">
+          <label class="input-label" for="npcCategory">カテゴリー</label><select id="npcCategory"><option>商人</option><option>クエスト</option><option>職人</option><option>その他</option></select>
+          <label class="input-label" for="npcLocation">場所の説明</label><input id="npcLocation" maxlength="200" placeholder="例：門の近く">
+          <label class="input-label" for="npcMemo">メモ</label><textarea id="npcMemo" maxlength="2000" placeholder="出現条件・販売品など"></textarea>
+          <div class="form-actions"><button type="submit" class="btn primary">保存する</button><button id="deleteBtn" type="button" class="btn ghost hidden">削除する</button></div>
+        </form>
+        <span id="message" class="status" role="status"></span>
+      </section>
+      <section class="section stack">
+        <h3>データのバックアップ</h3>
+        <div class="flex"><button id="exportBtn" class="btn small" type="button">CSVを書き出す</button><button id="importBtn" class="btn small" type="button">CSVを読み込む</button><input id="importFile" class="hidden" type="file" accept=".csv,text/csv"></div>
+        <p class="hint" style="margin:0">登録情報は、このブラウザ内に保存されます。まだ他のPC・スマホとは共有されません。定期的にCSVを保存してください。</p>
+      </section>
+    </aside>
+    <section class="map-shell" aria-label="ゲームマップ">
+      <div class="toolbar"><div id="mapTitle" class="overlay-title">輝く海岸（全体）</div><div class="zoom"><button id="zoomOut" class="btn small" aria-label="縮小">－</button><button id="resetView" class="btn small">全体表示</button><button id="zoomIn" class="btn small" aria-label="拡大">＋</button></div></div>
+      <div id="viewport" class="viewport" tabindex="0" aria-label="ドラッグで移動、ホイールで拡大縮小"><div id="stage" class="stage"><img id="mapImage" alt="輝く海岸ゲームマップ"><div id="markers"></div></div></div>
+      <div class="map-footer"><span id="viewHint">ドラッグ:移動 / ホイール:拡大縮小</span><span id="coordReadout">座標 —</span></div>
     </section>
-    <section class="panel">
-      <strong>データの追加方法</strong>
-      <p class="muted">NPCの登録・編集は、接続したGoogleスプレッドシートで行います。サイトのコードを編集する必要はありません。</p>
-      <p id="notice">マップ画像とエリア階層は、初期設定時に登録します。</p>
-    </section>
-  </aside>
-</main>
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  </main>
+</div>
 <script>
-// ============================================================
-// 初期設定：画像ファイル名・エリア階層をここに登録します。
-// parentId=null は最上位マップ。子エリアの parentX/parentY は
-// 親マップ上でクリックして取得した座標です。
-// ============================================================
-const AREAS = [
-  {id:"auroria", name:"Auroria 全体", parentId:null, image:"images/world.jpg", parentX:null, parentY:null},
-  {id:"diamond", name:"Diamond Shores", parentId:"auroria", image:"images/diamond-shores.jpg", parentX:300, parentY:250},
-  {id:"gylden", name:"Gylden Ruins", parentId:"auroria", image:"images/gylden-ruins.jpg", parentX:550, parentY:330},
-  {id:"astron", name:"Astron Plains", parentId:"auroria", image:"images/astron-plains.jpg", parentX:760, parentY:420}
+'use strict';
+// 今後エリアを追加する場合は、この MAPS 配列へ追加します。
+const MAPS = [
+  {id:'coast',name:'輝く海岸（全体）',image:'images/kagayaku_coast_overview.png',parent:null},
+  {id:'coast_north',name:'輝く海岸・北岸（詳細）',image:'images/kagayaku_coast_detail_01.png',parent:'coast',overviewPoint:{x:805,y:183}}
 ];
-
-// Googleスプレッドシートを「ウェブに公開」して得たCSV URLを貼ります。
-// 空欄のままなら下のサンプルNPCが表示されます。
-const SHEET_CSV_URL = "";
-
-// CSV列：id,name,areaId,x,y,category,location,memo,source,status
-const DEMO_NPCS = [
-  {id:"demo01",name:"サンプルNPC（商人）",areaId:"diamond",x:420,y:310,category:"商人",location:"中央広場",memo:"ここを書き換えてください",source:"サンプル",status:"確認済み"},
-  {id:"demo02",name:"サンプルNPC（クエスト）",areaId:"gylden",x:560,y:420,category:"クエスト",location:"遺跡入口",memo:"ここを書き換えてください",source:"サンプル",status:"確認済み"}
-];
-
-const map = L.map("map",{crs:L.CRS.Simple,minZoom:-4,maxZoom:3,zoomSnap:0.25});
-let activeAreaId="auroria", activeImage=null, markers=[], npcData=[], history=[];
-const $ = id => document.getElementById(id);
-const areaById = id => AREAS.find(a=>a.id===id);
-const clean = v => String(v ?? "").trim();
-
-function imageBounds(width,height){return [[0,0],[height,width]];}
-function toLeaflet(x,y,height){return [height-Number(y),Number(x)];}
-function toImageCoords(latlng,height){return {x:Math.round(latlng.lng),y:Math.round(height-latlng.lat)};}
-
-function clearMarkers(){markers.forEach(m=>map.removeLayer(m));markers=[];}
-function makePopup(title,lines){
-  const box=document.createElement("div");
-  const strong=document.createElement("strong");strong.textContent=title;box.appendChild(strong);
-  lines.forEach(line=>{const p=document.createElement("div");p.textContent=line;box.appendChild(p);});
-  return box;
-}
-function addMarker(x,y,height,title,lines,onClick){
-  const marker=L.marker(toLeaflet(x,y,height)).addTo(map);
-  marker.bindPopup(makePopup(title,lines));
-  if(onClick) marker.on("click",onClick);
-  markers.push(marker);
-  return marker;
-}
-
-function renderBreadcrumbs(){
-  const nav=$("breadcrumbs");nav.replaceChildren();
-  const chain=[];let a=areaById(activeAreaId);
-  while(a){chain.unshift(a);a=a.parentId?areaById(a.parentId):null;}
-  chain.forEach((item,i)=>{
-    const b=document.createElement("button");b.textContent=item.name;b.disabled=i===chain.length-1;
-    b.onclick=()=>showArea(item.id);nav.appendChild(b);
-  });
-}
-function renderResults(){
-  const q=$("search").value.toLocaleLowerCase("ja");
-  const cat=$("category").value;
-  const rows=npcData.filter(n=>{
-    const hay=[n.name,n.category,n.location,n.memo,n.areaName].join(" ").toLocaleLowerCase("ja");
-    return hay.includes(q)&&(!cat||n.category===cat);
-  });
-  const key=$("sort").value;
-  rows.sort((a,b)=>clean(a[key]).localeCompare(clean(b[key]),"ja"));
-  $("count").textContent=`${rows.length} 件 / 登録 ${npcData.length} 件`;
-  const root=$("results");root.replaceChildren();
-  rows.forEach(n=>{
-    const el=document.createElement("div");el.className="result";
-    const title=document.createElement("strong");title.textContent=n.name;
-    const meta=document.createElement("div");meta.className="muted";meta.textContent=`${n.category}｜${n.areaName}｜${n.location}`;
-    const memo=document.createElement("div");memo.textContent=n.memo;
-    el.append(title,meta,memo);el.onclick=()=>openNpc(n);root.appendChild(el);
-  });
-}
-function refreshCategories(){
-  const select=$("category"),selected=select.value;
-  const cats=[...new Set(npcData.map(n=>n.category).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"ja"));
-  select.replaceChildren(new Option("すべての種類",""));
-  cats.forEach(c=>select.add(new Option(c,c)));
-  select.value=selected;
-}
-async function showArea(id,push=true){
-  const area=areaById(id);if(!area)return;
-  if(push&&activeAreaId!==id)history.push(activeAreaId);
-  activeAreaId=id;$("areaTitle").textContent=area.name;
-  $("backBtn").disabled=history.length===0;renderBreadcrumbs();clearMarkers();
-  return new Promise(resolve=>{
-    const img=new Image();
-    img.onload=()=>{
-      if(activeImage)map.removeLayer(activeImage);
-      const bounds=imageBounds(img.naturalWidth,img.naturalHeight);
-      activeImage=L.imageOverlay(area.image,bounds).addTo(map);
-      map.fitBounds(bounds);
-      // 子エリアへの移動ピン
-      AREAS.filter(a=>a.parentId===id).forEach(child=>{
-        if(child.parentX==null||child.parentY==null)return;
-        addMarker(child.parentX,child.parentY,img.naturalHeight,child.name,["このエリアを開く"],()=>showArea(child.id));
-      });
-      // 現在エリアのNPC
-      npcData.filter(n=>n.areaId===id).forEach(n=>{
-        const m=addMarker(n.x,n.y,img.naturalHeight,n.name,[n.category,n.location,n.memo].filter(Boolean));
-        n._marker=m;
-      });
-      resolve({width:img.naturalWidth,height:img.naturalHeight});
-    };
-    img.onerror=()=>{alert(`画像を読み込めません：${area.image}\nGitHubに画像をアップロードし、ファイル名を確認してください。`);resolve(null);};
-    img.src=area.image;
-  });
-}
-async function openNpc(n){
-  await showArea(n.areaId);
-  if(!n._marker)return;
-  map.setView(n._marker.getLatLng(),Math.min(map.getZoom()+1,2));
-  n._marker.openPopup();
-}
-async function loadNpcs(){
-  if(!SHEET_CSV_URL){npcData=DEMO_NPCS.map(n=>({...n}));}
-  else{
-    const result=await new Promise((resolve,reject)=>Papa.parse(SHEET_CSV_URL,{
-      download:true,header:true,skipEmptyLines:true,complete:resolve,error:reject
-    }));
-    npcData=result.data.map(r=>({
-      id:clean(r.id),name:clean(r.name),areaId:clean(r.areaId),
-      x:Number(r.x),y:Number(r.y),category:clean(r.category),
-      location:clean(r.location),memo:clean(r.memo),
-      source:clean(r.source),status:clean(r.status),
-      areaName:areaById(clean(r.areaId))?.name||clean(r.areaId)
-    })).filter(n=>n.name&&n.areaId&&Number.isFinite(n.x)&&Number.isFinite(n.y));
-  }
-  npcData.forEach(n=>n.areaName=areaById(n.areaId)?.name||n.areaId);
-  refreshCategories();renderResults();
-}
-map.on("click",e=>{
-  const area=areaById(activeAreaId);
-  const img=new Image();img.onload=()=>{
-    const p=toImageCoords(e.latlng,img.naturalHeight);
-    $("coord").textContent=`${area.name}：x=${p.x}, y=${p.y}（スプレッドシートに入力）`;
-  };img.src=area.image;
-});
-$("backBtn").onclick=()=>{const prev=history.pop();if(prev)showArea(prev,false);$("backBtn").disabled=history.length===0;};
-$("search").addEventListener("input",renderResults);
-$("category").addEventListener("change",renderResults);
-$("sort").addEventListener("change",renderResults);
-
-(async()=>{await loadNpcs();await showArea("auroria",false);})();
+const W=1920,H=1080,STORE='archeage-chronicles-npc-map-v2';
+const $=id=>document.getElementById(id),mapById=id=>MAPS.find(m=>m.id===id);
+const el={list:$('mapList'),npcList:$('npcList'),search:$('search'),filter:$('filter'),sort:$('sort'),count:$('count'),image:$('mapImage'),stage:$('stage'),markers:$('markers'),viewport:$('viewport'),mapTitle:$('mapTitle'),message:$('message'),form:$('npcForm'),coords:$('coords')};
+let currentMap='coast',npcs=[],selected=null,editId=null,adding=false,scale=1,tx=0,ty=0,drag=null,storageOK=true;
+try{const old=localStorage.getItem(STORE);if(old){const d=JSON.parse(old);if(Array.isArray(d))npcs=d.filter(x=>x&&mapById(x.mapId)&&Number.isFinite(+x.x)&&Number.isFinite(+x.y));}}catch(e){storageOK=false;}
+function message(t){el.message.textContent=t;}
+function save(){try{localStorage.setItem(STORE,JSON.stringify(npcs));storageOK=true;}catch(e){storageOK=false;message('保存できませんでした。CSVの書き出しでバックアップしてください。');}}
+function make(tag,cls,txt){const node=document.createElement(tag);if(cls)node.className=cls;if(txt!==undefined)node.textContent=txt;return node;}
+function mapChoices(){el.list.replaceChildren();MAPS.forEach(m=>{const b=make('button','map-choice');b.type='button';b.setAttribute('aria-current',String(currentMap===m.id));const strong=make('strong','',m.name);const subt=make('span','',m.parent?'↳ 詳細エリア':'全体マップ');b.append(strong,subt);b.addEventListener('click',()=>showMap(m.id));el.list.append(b);});}
+function fit(){const r=el.viewport.getBoundingClientRect();const f=Math.min(r.width/W,r.height/H)*.985;scale=f;tx=(r.width-W*scale)/2;ty=(r.height-H*scale)/2;apply();}
+function apply(){el.stage.style.transform=`translate3d(${tx}px,${ty}px,0) scale(${scale})`;}
+function showMap(id){if(!mapById(id))return;currentMap=id;const m=mapById(id);el.image.src=m.image;el.image.alt=m.name;el.mapTitle.textContent=m.name;adding=false;el.viewport.classList.remove('adding');$('cancelBtn').classList.add('hidden');el.form.classList.add('hidden');el.coords.textContent='';$('registerHelp').textContent='「ピンを追加」を押し、マップ上の登録したい位置をクリックしてください。';editId=null;mapChoices();fit();render();message('');}
+function filterData(){const term=el.search.value.trim().toLocaleLowerCase('ja');const cat=el.filter.value;return npcs.filter(n=>(!cat||n.category===cat)&&(!term||[n.name,n.location,n.memo,mapById(n.mapId)?.name].join(' ').toLocaleLowerCase('ja').includes(term))).sort((a,b)=>{let aa='',bb='';if(el.sort.value==='area'){aa=mapById(a.mapId)?.name||'';bb=mapById(b.mapId)?.name||'';}else if(el.sort.value==='category'){aa=a.category;bb=b.category;}else{aa=a.name;bb=b.name;}return aa.localeCompare(bb,'ja')||a.name.localeCompare(b.name,'ja');});}
+function render(){const filtered=filterData();el.count.textContent=`${filtered.length} 件`;el.npcList.replaceChildren();if(!filtered.length)el.npcList.append(make('div','empty','NPCはまだ登録されていません。'));filtered.forEach(n=>{const b=make('button','npc-item');b.type='button';b.append(make('strong','',n.name),make('small','',`${n.category} · ${mapById(n.mapId)?.name||'不明'}${n.location?' · '+n.location:''}`));b.addEventListener('click',()=>{if(currentMap!==n.mapId)showMap(n.mapId);openEdit(n);center(n.x,n.y);});el.npcList.append(b);});el.markers.replaceChildren();const m=mapById(currentMap);if(currentMap==='coast'){MAPS.filter(x=>x.parent==='coast'&&x.overviewPoint).forEach(x=>{const b=make('button','marker jump','↳ 詳細マップへ');b.style.left=`${x.overviewPoint.x}px`;b.style.top=`${x.overviewPoint.y}px`;b.title='仮の案内地点（詳細図に移動）';b.type='button';b.addEventListener('click',e=>{e.stopPropagation();showMap(x.id);});el.markers.append(b);});}
+ filtered.filter(n=>n.mapId===currentMap).forEach(n=>{const b=make('button','marker npc',`● ${n.name}`);b.style.left=`${n.x}px`;b.style.top=`${n.y}px`;b.title=`${n.category} / ${n.name}`;b.type='button';b.addEventListener('click',e=>{e.stopPropagation();openEdit(n);});el.markers.append(b);});}
+function center(x,y){const r=el.viewport.getBoundingClientRect();tx=r.width/2-x*scale;ty=r.height/2-y*scale;apply();}
+function zoom(mult,cx,cy){const r=el.viewport.getBoundingClientRect();const px=cx??r.width/2,py=cy??r.height/2;const next=Math.min(3,Math.max(Math.min(r.width/W,r.height/H)*.5,scale*mult));tx=px-(px-tx)*next/scale;ty=py-(py-ty)*next/scale;scale=next;apply();}
+function position(e){const r=el.viewport.getBoundingClientRect();return {x:Math.max(0,Math.min(W,Math.round((e.clientX-r.left-tx)/scale))),y:Math.max(0,Math.min(H,Math.round((e.clientY-r.top-ty)/scale)))};}
+function openForm(x,y,id){selected={x,y};editId=id||null;el.form.classList.remove('hidden');$('deleteBtn').classList.toggle('hidden',!id);$('cancelBtn').classList.remove('hidden');el.coords.textContent=`登録位置：X ${x} / Y ${y}  ·  ${mapById(currentMap).name}`;}
+function openEdit(n){adding=false;el.viewport.classList.remove('adding');openForm(+n.x,+n.y,n.id);$('npcName').value=n.name;$('npcCategory').value=n.category;$('npcLocation').value=n.location||'';$('npcMemo').value=n.memo||'';$('registerHelp').textContent='登録済みのピンを編集中です。';message('');}
+function cancel(){adding=false;el.viewport.classList.remove('adding');el.form.classList.add('hidden');$('cancelBtn').classList.add('hidden');editId=null;selected=null;$('registerHelp').textContent='「ピンを追加」を押し、マップ上の登録したい位置をクリックしてください。';message('');}
+$('newBtn').addEventListener('click',()=>{cancel();adding=true;el.viewport.classList.add('adding');$('cancelBtn').classList.remove('hidden');$('registerHelp').textContent='マップ上のNPCがいる場所をクリックしてください。';message('マップ上の位置をクリックすると入力欄が開きます。');el.viewport.scrollIntoView({behavior:'smooth',block:'nearest'});});
+$('cancelBtn').addEventListener('click',cancel);
+el.form.addEventListener('submit',e=>{e.preventDefault();if(!selected)return;const name=$('npcName').value.trim();if(!name)return;const entry={id:editId||((typeof crypto!=='undefined'&&crypto.randomUUID)?crypto.randomUUID():Date.now()+'-'+Math.random().toString(36).slice(2)),name,mapId:currentMap,x:selected.x,y:selected.y,category:$('npcCategory').value,location:$('npcLocation').value.trim(),memo:$('npcMemo').value.trim()};if(editId){npcs=npcs.map(n=>n.id===editId?entry:n);}else npcs.push(entry);save();cancel();render();message(`「${name}」を保存しました。`);});
+$('deleteBtn').addEventListener('click',()=>{if(!editId)return;const obj=npcs.find(n=>n.id===editId);if(!confirm(`「${obj?.name||'このNPC'}」を削除しますか？`))return;npcs=npcs.filter(n=>n.id!==editId);save();cancel();render();message('NPCを削除しました。');});
+for(const id of ['search','filter','sort'])el[id]?.addEventListener('input',render);
+el.search.addEventListener('input',render);el.filter.addEventListener('change',render);el.sort.addEventListener('change',render);
+el.viewport.addEventListener('pointerdown',e=>{if(e.button!==0||e.target.closest('button'))return;drag={x:e.clientX,y:e.clientY,ox:tx,oy:ty,moved:false};});
+el.viewport.addEventListener('pointermove',e=>{if(drag){const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.hypot(dx,dy)>5){drag.moved=true;el.viewport.classList.add('grabbing');if(!el.viewport.hasPointerCapture(e.pointerId))el.viewport.setPointerCapture(e.pointerId);}if(drag.moved){tx=drag.ox+dx;ty=drag.oy+dy;apply();}}else{const p=position(e);$('coordReadout').textContent=`X ${p.x} / Y ${p.y}`;}});
+el.viewport.addEventListener('pointerup',e=>{if(!drag)return;const moved=drag.moved;drag=null;el.viewport.classList.remove('grabbing');if(el.viewport.hasPointerCapture(e.pointerId))el.viewport.releasePointerCapture(e.pointerId);if(!moved&&adding){const p=position(e);if(p.x>0&&p.x<W&&p.y>0&&p.y<H){openForm(p.x,p.y,null);$('npcName').value='';$('npcCategory').value='商人';$('npcLocation').value='';$('npcMemo').value='';$('npcName').focus();message('NPC名などを入力して保存してください。');}}});
+el.viewport.addEventListener('pointercancel',()=>{drag=null;el.viewport.classList.remove('grabbing');});
+el.viewport.addEventListener('wheel',e=>{e.preventDefault();const r=el.viewport.getBoundingClientRect();zoom(e.deltaY<0?1.15:1/1.15,e.clientX-r.left,e.clientY-r.top);},{passive:false});
+$('zoomIn').addEventListener('click',()=>zoom(1.25));$('zoomOut').addEventListener('click',()=>zoom(.8));$('resetView').addEventListener('click',fit);
+function csvEscape(s){const t=String(s??'');return /[",\n\r]/.test(t)?'"'+t.replaceAll('"','""')+'"':t;}
+const columns=['id','name','mapId','x','y','category','location','memo'];
+$('exportBtn').addEventListener('click',()=>{const csv='\ufeff'+[columns.join(','),...npcs.map(n=>columns.map(k=>csvEscape(n[k])).join(','))].join('\r\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob);const a=make('a');a.href=url;a.download='npc_backup.csv';document.body.append(a);a.click();a.remove();URL.revokeObjectURL(url);message('CSVファイルを書き出しました。');});
+$('importBtn').addEventListener('click',()=>$('importFile').click());
+function parseCSV(s){s=s.replace(/^\ufeff/,'');const out=[];let row=[],f='',q=false;for(let i=0;i<s.length;i++){const c=s[i];if(q){if(c==='"'&&s[i+1]==='"'){f+='"';i++;}else if(c==='"')q=false;else f+=c;}else if(c==='"')q=true;else if(c===','){row.push(f);f='';}else if(c==='\n'){row.push(f.replace(/\r$/,''));out.push(row);row=[];f='';}else f+=c;}if(f.length||row.length){row.push(f.replace(/\r$/,''));out.push(row);}return out;}
+$('importFile').addEventListener('change',async e=>{const file=e.target.files[0];e.target.value='';if(!file)return;try{const rows=parseCSV(await file.text());const headings=rows.shift()||[];if(!['name','mapId','x','y'].every(k=>headings.includes(k)))throw Error('CSVの列が一致しません');const data=rows.filter(r=>r.some(v=>v.trim())).map((r,i)=>{const o={};headings.forEach((h,j)=>o[h]=r[j]||'');if(!o.name||!mapById(o.mapId)||!Number.isFinite(+o.x)||!Number.isFinite(+o.y))throw Error(`${i+2}行目の値が不正です`);return {id:o.id||Date.now()+'-'+i,name:o.name,mapId:o.mapId,x:Math.max(0,Math.min(W,+o.x)),y:Math.max(0,Math.min(H,+o.y)),category:o.category||'その他',location:o.location||'',memo:o.memo||''};});if(!confirm(`CSVの${data.length}件で現在の登録データ（${npcs.length}件）を置き換えますか？`))return;npcs=data;save();cancel();render();message(`${data.length}件のNPCを読み込みました。`);}catch(err){message('CSVを読み込めませんでした：'+err.message);}});
+window.addEventListener('resize',()=>fit());
+el.image.addEventListener('error',()=>message('マップ画像が見つかりません。imagesフォルダとファイル名を確認してください。'));
+showMap('coast');if(!storageOK)message('ブラウザで保存が無効です。CSVをバックアップしてください。');
 </script>
 </body>
 </html>
