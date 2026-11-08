@@ -32,25 +32,25 @@
       "color": "#5AC8FA",
       "icon": "shield"
     },
-    "採掘": {
-      "color": "#5AC8FA",
-      "icon": "pickaxe"
-    },
     "ボス": {
       "color": "#5AC8FA",
       "icon": "crown"
     },
+    "採掘": {
+      "color": "#5AC8FA",
+      "icon": "pickaxe"
+    },
     "その他": {
       "color": "#67C8FF",
-      "icon": "●"
-    },
-    "商人": {
-      "color": "#FBBF24",
-      "icon": "🛒"
+      "icon": "pin"
     },
     "動物": {
       "color": "#BA631C",
       "icon": "🐂"
+    },
+    "商人": {
+      "color": "#FBBF24",
+      "icon": "🛒"
     },
     "宝箱": {
       "color": "#5AC8FA",
