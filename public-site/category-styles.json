@@ -8,29 +8,13 @@
       "color": "#5AC8FA",
       "icon": "bag"
     },
-    "職人": {
-      "color": "#34D399",
-      "icon": "hammer"
-    },
-    "武器": {
-      "color": "#5AC8FA",
-      "icon": "swords"
-    },
-    "植物": {
-      "color": "#5BFB76",
-      "icon": "leaf"
-    },
-    "敵": {
-      "color": "#5AC8FA",
-      "icon": "skull"
-    },
     "クエスト": {
       "color": "#A78BFA",
       "icon": "📜"
     },
-    "防具": {
-      "color": "#5AC8FA",
-      "icon": "shield"
+    "その他": {
+      "color": "#67C8FF",
+      "icon": "pin"
     },
     "ボス": {
       "color": "#5AC8FA",
@@ -40,21 +24,37 @@
       "color": "#5AC8FA",
       "icon": "pickaxe"
     },
-    "その他": {
-      "color": "#67C8FF",
-      "icon": "pin"
+    "商人": {
+      "color": "#FBBF24",
+      "icon": "🛒"
+    },
+    "植物": {
+      "color": "#5BFB76",
+      "icon": "leaf"
+    },
+    "職人": {
+      "color": "#34D399",
+      "icon": "hammer"
+    },
+    "敵": {
+      "color": "#5AC8FA",
+      "icon": "skull"
     },
     "動物": {
       "color": "#BA631C",
       "icon": "🐂"
     },
-    "商人": {
-      "color": "#FBBF24",
-      "icon": "🛒"
+    "武器": {
+      "color": "#5AC8FA",
+      "icon": "swords"
     },
     "宝箱": {
       "color": "#5AC8FA",
       "icon": "chest"
+    },
+    "防具": {
+      "color": "#5AC8FA",
+      "icon": "shield"
     }
   }
 }
