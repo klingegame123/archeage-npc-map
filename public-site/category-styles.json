@@ -2,59 +2,73 @@
   "styles": {
     "NPC": {
       "color": "#5AC8FA",
-      "icon": "users"
+      "icon": "users",
+      "type": "npc"
     },
     "アイテム": {
       "color": "#5AC8FA",
-      "icon": "bag"
+      "icon": "bag",
+      "type": "item"
     },
     "クエスト": {
       "color": "#A78BFA",
-      "icon": "📜"
+      "icon": "📜",
+      "type": "point"
     },
     "その他": {
       "color": "#67C8FF",
-      "icon": "pin"
+      "icon": "pin",
+      "type": "point"
     },
     "ボス": {
       "color": "#5AC8FA",
-      "icon": "crown"
+      "icon": "crown",
+      "type": "enemy"
     },
     "採掘": {
       "color": "#5AC8FA",
-      "icon": "pickaxe"
+      "icon": "pickaxe",
+      "type": "item"
     },
     "商人": {
       "color": "#FBBF24",
-      "icon": "🛒"
+      "icon": "🛒",
+      "type": "npc"
     },
     "植物": {
       "color": "#5BFB76",
-      "icon": "leaf"
+      "icon": "leaf",
+      "type": "item"
     },
     "職人": {
       "color": "#34D399",
-      "icon": "hammer"
+      "icon": "hammer",
+      "type": "npc"
     },
     "敵": {
       "color": "#5AC8FA",
-      "icon": "skull"
+      "icon": "skull",
+      "type": "enemy"
     },
     "動物": {
       "color": "#BA631C",
-      "icon": "🐂"
+      "icon": "paw",
+      "type": "item"
     },
     "武器": {
       "color": "#5AC8FA",
-      "icon": "swords"
+      "icon": "swords",
+      "type": "item"
     },
     "宝箱": {
       "color": "#5AC8FA",
-      "icon": "chest"
+      "icon": "chest",
+      "type": "item"
     },
     "防具": {
       "color": "#5AC8FA",
-      "icon": "shield"
+      "icon": "shield",
+      "type": "item"
     }
   }
 }
