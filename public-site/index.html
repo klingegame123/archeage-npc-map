@@ -297,12 +297,13 @@ body.report-overlay-active{overflow:hidden}
  .report-entry .report-guide{padding:9px}
  .report-entry .embedded-google-form{min-height:1250px}
 }
+.report-type-note{display:block;grid-column:1/-1;padding:2px 0 6px;color:#a6f3d2;font-weight:600}
 </style></head><body><a href="#search" class="skip-link">情報検索へスキップ</a>
-<header class="top"><div class="brand"><small>ARCHEAGE CHRONICLES · FAN MAP</small><strong>情報マップ <small style="display:inline;color:#b5c6d5;letter-spacing:0">v6.17</small></strong></div><span id="connectionChip" class="connection-chip is-loading" role="status" aria-live="polite">● データ確認中</span><button class="btn gold" id="topInlineForm" type="button">✉ このページで情報提供</button></header>
+<header class="top"><div class="brand"><small>ARCHEAGE CHRONICLES · FAN MAP</small><strong>情報マップ <small style="display:inline;color:#b5c6d5;letter-spacing:0">v6.18</small></strong></div><span id="connectionChip" class="connection-chip is-loading" role="status" aria-live="polite">● データ確認中</span><button class="btn gold" id="topInlineForm" type="button">✉ このページで情報提供</button></header>
 <div class="layout"><aside class="side"><div><h2>冒険情報マップ</h2><p class="muted">NPC・アイテム・敵などを種類、名前、エリアから検索できます。登録済みの情報を表示します。</p></div><section class="section main-search" id="searchSection"><div class="row"><h3>情報を探す</h3><span id="count" class="note">0件</span></div><div class="mobile-nav"><button class="btn" type="button" id="toMap">↑ マップを表示</button></div><div class="suggest-wrap"><input id="search" type="search" placeholder="名前・場所・アイテム・メモで検索" aria-label="情報検索" autocomplete="off" aria-autocomplete="list" aria-controls="searchSuggestions" aria-expanded="false"><div id="searchSuggestions" role="listbox" aria-label="検索候補" class="suggestions hidden"></div></div><div class="filters-v56"><div class="filters"><select id="kindFilter" aria-label="情報の種類で絞り込み"><option value="">すべての種類</option><option value="npc">🧑 NPC</option><option value="item">💎 アイテム・採集</option><option value="enemy">⚔️ 敵・ボス</option><option value="point">📍 その他の地点</option></select><select id="areaFilter" aria-label="エリアで絞り込み"><option value="">すべてのエリア</option></select></div><div class="filters"><select id="category" aria-label="カテゴリー"><option value="">全カテゴリー</option></select><select id="sort" aria-label="並べ替え"><option value="name">名前順</option><option value="category">分類順</option><option value="area">マップ順</option></select></div><div class="filter-actions"><span class="note">ひらがな・カタカナ／全角・半角の違いにも対応</span><button class="btn quick-clear" type="button" id="clearFilters">条件をクリア</button></div></div><div class="pin-display-row"><label for="pinDisplayMode">📍 ピン表示</label><select id="pinDisplayMode" aria-label="ピン表示方法"><option value="full">アイコン＋名前</option><option value="icons">アイコンのみ</option><option value="focus">選択中の情報を強調</option></select></div><div class="pin-display-row pin-size-row"><label for="pinSize">📐 ピンの大きさ</label><select id="pinSize" aria-label="ピンの大きさ"><option value="small">小（おすすめ）</option><option value="medium">中</option><option value="large">大</option></select></div><p class="note pin-size-hint">この端末のブラウザに設定を保存します。マップ切り替えの案内ピンには適用しません。</p><div class="map-search-tools" role="group" aria-label="地図上の検索操作"><button type="button" class="btn" id="onlyCurrentMap" aria-pressed="false">🗺 この地図だけ</button><button type="button" class="btn" id="fitMatches">📍 検索結果を地図に表示</button></div><p id="mapSearchStatus" class="map-search-status" role="status" aria-live="polite">現在の地図にある情報をまとめて表示できます。</p><div class="saved-tabs" role="group" aria-label="表示する情報"><button type="button" class="btn" data-mode="all" aria-pressed="true">すべて</button><button type="button" class="btn" data-mode="favorites" aria-pressed="false">★ お気に入り</button><button type="button" class="btn" data-mode="recent" aria-pressed="false">最近見た</button></div><div id="savedNotice" class="saved-notice" role="status" aria-live="polite"></div>
 <div class="collection-actions"><button type="button" class="btn" id="clearFavorites">★ お気に入りを整理</button><button type="button" class="btn" id="clearRecent">履歴をすべて削除</button></div><div id="npcList" class="list"></div><p class="note">カテゴリーをタップして絞り込み（もう一度で解除）</p><div id="legend" class="legend" role="group" aria-label="カテゴリーで絞り込み"></div></section><section class="section map-select" id="mapSelector"><h3>マップを選ぶ</h3><button type="button" class="btn hidden" id="parentMap">← 親マップへ戻る</button><div id="maps" class="map-choices"></div><p class="note">全体図の案内ピンから詳細マップへ移動できます。案内位置は仮置きです。</p></section><section id="detailSection" class="section hidden"><h3 id="detailTitle">情報の詳細</h3><div id="detail" class="detail"></div></section><section class="section report-section" id="reportSection" aria-label="情報提供・情報修正" role="dialog" aria-modal="true" aria-labelledby="reportPanelTitle" tabindex="-1">
 <div class="report-shell">
- <div class="report-panel-head"><h2 id="reportPanelTitle">📝 情報提供・情報修正 <small>v6.17</small></h2><button id="closeReportPanel" class="btn" type="button">✕ 閉じる</button></div>
+ <div class="report-panel-head"><h2 id="reportPanelTitle">📝 情報提供・情報修正 <small>v6.18</small></h2><button id="closeReportPanel" class="btn" type="button">✕ 閉じる</button></div>
  <div class="report-content">
   <aside class="report-context" aria-label="参照情報">
     <details id="reportReference" class="report-reference" open><summary><strong id="reportReferenceSummary">新しい情報を投稿</strong><span>▼</span></summary><p id="reportReferenceDetails" class="note">地図上の情報を選ぶと、その内容をここで参照できます。</p></details>
@@ -312,12 +313,12 @@ body.report-overlay-active{overflow:hidden}
   <div class="report-entry">
    <details class="report-guide" id="reportGuide" open><summary>投稿内容を入力</summary>
     <div id="reportEditorPane">
-     <p class="note">「新規登録」か「情報修正」を選んでください。既存情報の修正では、詳細画面の「この情報を報告」から開くと名前・エリア・座標を引き継げます。</p>
+     <p class="note">「新規登録」か「情報修正」を選び、カテゴリーを指定してください。種類はカテゴリーから自動判定します。修正は詳細画面の「この情報を報告」から始めてください。</p>
      <div class="report-fields">
-<label for="reportEntityType">情報の種類</label><select id="reportEntityType"><option value="npc">🧑 NPC</option><option value="item">💎 アイテム・採集</option><option value="enemy">⚔️ 敵・ボス</option><option value="point">📍 その他の地点</option></select><label for="reportKind">投稿の種類</label><select id="reportKind"><option value="new">新規登録</option><option value="info">情報修正（位置も含む）</option></select>
+<input type="hidden" id="reportEntityType" value=""><label for="reportKind">投稿の種類</label><select id="reportKind"><option value="new">新規登録</option><option value="info">情報修正（位置も含む）</option></select>
 <label for="reportName" id="reportNameLabel">名前 <span class="required">必須</span></label><input type="text" id="reportName" placeholder="例：道具商人" maxlength="120" autocomplete="off">
 <label for="reportArea">エリア <span class="required">必須</span></label><select id="reportArea"><option value="">エリアを選択</option></select>
-<label for="reportCategory" id="reportCategoryLabel">カテゴリー</label><select id="reportCategory"><option value="">カテゴリーを選択</option></select><label for="reportCustomCategory" id="reportCustomCategoryLabel" class="hidden">カテゴリー名 <span class="required">必須</span></label><input id="reportCustomCategory" class="hidden" type="text" maxlength="80" placeholder="例：鉱石、素材、通常モンスター">
+<label for="reportCategory" id="reportCategoryLabel">カテゴリー <span class="required">必須</span></label><select id="reportCategory"><option value="">カテゴリーを選択</option></select><span id="reportAutoType" class="note report-type-note" role="status" aria-live="polite">カテゴリーを選択すると、登録先を自動判定します。</span><input type="hidden" id="reportCustomCategory" value="">
 <label for="reportLocation">出現場所・目印</label><input id="reportLocation" type="text" placeholder="例：北の橋のそば" maxlength="300">
 <label for="reportRelated">関連情報・ドロップ（任意）</label><input id="reportRelated" type="text" maxlength="600" placeholder="関連アイテムなど"><label for="reportMemo">補足情報（任意）</label><textarea id="reportMemo" rows="3" maxlength="1200" placeholder="出現条件・目印・修正したい内容など"></textarea>
 <label for="reportImage">参考スクリーンショットの共有URL（任意）</label><input id="reportImage" type="url" maxlength="1000" placeholder="https://…（画像の共有リンク）" inputmode="url">
@@ -448,6 +449,7 @@ function checkBrowserStorage(){
 }
 // v6.2: report preparation and review, all stored only in the user's browser.
 const REPORT_DRAFT_KEY='ac_npc_v62_report_draft';
+const REPORT_TYPES={npc:'NPC',item:'アイテム・採集',enemy:'敵・ボス',point:'その他の地点'};
 const REPORT_FORM_FIELDS=['reportNpcId','reportEntityType','reportKind','reportName','reportArea','reportCategory','reportCustomCategory','reportLocation','reportRelated','reportMemo','reportImage'];
 let reportReady=false,reportSaveTimer=null,reportCoordinate=null,reportOriginal=null,reportPrefill=null;
 let reportPanelOpen=false,reportReferenceMobileInit=false;
@@ -488,6 +490,9 @@ function reportRestoreDraft(){
     $('reportNpcId').value=typeof obj.originalNpcId==='string'?obj.originalNpcId.slice(0,130):'';
     if(validReportCoordinate(obj.chosenCoordinate))reportCoordinate={mapId:obj.chosenCoordinate.mapId,x:obj.chosenCoordinate.x,y:obj.chosenCoordinate.y};
     if($('reportKind').value==='position')$('reportKind').value='info';
+    if(obj.fields.reportCustomCategory&&obj.fields.reportEntityType!=='npc'&&obj.fields.reportKind==='info'&&obj.fields.reportCategory==='その他'){
+      $('reportCategory').value=obj.fields.reportCustomCategory;
+    }
     reportSyncEntityType();reportDraftStatus('前回の下書きを復元しました（このブラウザのみ）');
     return true;
   }catch(e){reportDraftStatus('以前の下書きを復元できませんでした');return false;}
@@ -496,7 +501,7 @@ function reportClearDraft(){
   if(reportHasContent(reportStorageSnapshot().fields)&&!window.confirm('この端末に保存した投稿の下書きを削除しますか？'))return;
   clearTimeout(reportSaveTimer);
   for(const id of REPORT_FORM_FIELDS)$(id).value='';
-  $('reportEntityType').value='npc';$('reportKind').value='new';$('reportCustomCategory').value='';$('reportRelated').value='';$('reportNpcId').value='';reportCoordinate=null;reportOriginal=null;reportSyncEntityType();
+  $('reportEntityType').value='';$('reportKind').value='new';$('reportCustomCategory').value='';$('reportRelated').value='';$('reportNpcId').value='';reportCoordinate=null;reportOriginal=null;reportSyncEntityType();
   try{localStorage.removeItem(REPORT_DRAFT_KEY);}catch(e){}
   reportUpdatePreview();reportDraftStatus('下書きを削除しました');
   $('reportFeedback').textContent='下書きを削除しました。Googleフォームへの投稿は行っていません。';
@@ -507,12 +512,31 @@ function fillSelect(el,options,placeholder){
   if([...el.options].some(o=>o.value===old))el.value=old;
   else if(old){el.add(new Option(old+'（以前の入力・現在の設定にありません）',old));el.value=old;}
 }
+// v6.18: only categories with an explicit administrator classification can be used for new entries.
 function updateReportLists(){
-  const areas=MAPS.map(m=>({value:m.id,label:m.name}));
-  const cats=[...new Set([...Object.keys(defaults),...Object.keys(styles),...npcs.map(n=>n.category)])].filter(Boolean).sort(jaCollator.compare).map(c=>({value:c,label:c}));
-  fillSelect($('reportArea'),areas,'エリアを選択');fillSelect($('reportCategory'),cats,'カテゴリーを選択');
-  reportUpdatePreview();
+ const areas=MAPS.map(m=>({value:m.id,label:m.name}));
+ fillSelect($('reportArea'),areas,'エリアを選択');
+ const correction=$('reportKind').value==='info';
+ const original=correction?(reportOriginal||null):null;
+ const current=$('reportCategory').value;
+ const cats=Object.keys(styles).filter(c=>{
+   const t=styles[c]?.type;
+   return Object.prototype.hasOwnProperty.call(REPORT_TYPES,t)&&(!original||t===original.type||c===original.category);
+ }).sort(jaCollator.compare);
+ if(original?.category&&!cats.includes(original.category))cats.push(original.category);
+ const el=$('reportCategory');el.replaceChildren(new Option('カテゴリーを選択',''));
+ cats.forEach(c=>el.add(new Option(c,c)));
+ if(cats.includes(current))el.value=current;
+ else if(original?.category&&cats.includes(original.category))el.value=original.category;
+ reportSyncEntityType();reportUpdatePreview();
 }
+function reportChosenType(){
+ if($('reportKind').value==='info'&&reportOriginal)return reportOriginal.type;
+ const c=$('reportCategory').value;
+ const t=styles[c]?.type;
+ return Object.prototype.hasOwnProperty.call(REPORT_TYPES,t)?t:'';
+}
+
 function scrollToReport(){
  $('reportGuide').open=true;if(window.innerWidth<=820&&!reportReferenceMobileInit){$('reportReference').open=false;reportReferenceMobileInit=true;}reportPanelOpen=true;$('reportSection').classList.add('report-active');
  document.body.classList.add('report-overlay-active');$('reportSection').focus({preventScroll:true});reportUpdateReference();
@@ -553,37 +577,48 @@ function reportPrepareForEntry(id){
  const current=$('reportName').value.trim(),currentId=reportNormalizedTargetId($('reportNpcId').value,n.type);
  if(current&&currentId!==reportTargetIdForEntry(n)&&!window.confirm('入力中の下書きを「'+n.name+'」の修正内容で置き換えますか？'))return;
  $('reportEntityType').value=n.type||'npc';$('reportKind').value='info';
+ reportOriginal=n;reportCoordinate=null;$('reportNpcId').value=reportTargetIdForEntry(n);
  $('reportName').value=n.name;updateReportLists();$('reportArea').value=n.mapId;
- if(n.type==='npc')$('reportCategory').value=n.category;
- else{$('reportCategory').value='その他';$('reportCustomCategory').value=n.category||'';}
+ if(![...$('reportCategory').options].some(o=>o.value===n.category))$('reportCategory').add(new Option(n.category+'（登録時の分類）',n.category));
+ $('reportCategory').value=n.category;$('reportCustomCategory').value='';
  $('reportLocation').value=n.location||'';$('reportRelated').value=n.related||'';
  $('reportMemo').value=n.memo||'';$('reportImage').value='';$('reportNpcId').value=reportTargetIdForEntry(n);
- reportOriginal=n;reportCoordinate=null;reportSyncEntityType();reportUpdatePreview();scrollToReport();
+ reportSyncEntityType();reportUpdatePreview();scrollToReport();
  $('reportFeedback').textContent='既存情報を読み込みました。変更したい項目だけ編集してください。位置もこの画面から修正できます。';
 }
 function reportPrepareForNpc(id){reportPrepareForEntry(id);}
 // v6.15: NPC以外でも報告種別を選択可能。修正先の情報IDを明示する。
 function reportSyncEntityType(){
- const extra=$('reportEntityType').value!=='npc';
+ const type=reportChosenType();
+ $('reportEntityType').value=type;
  $('reportKind').disabled=false;
  $('reportKind').options[0].textContent='新規登録';
- $('reportCategory').classList.toggle('hidden',extra);$('reportCategoryLabel').classList.toggle('hidden',extra);
- $('reportCustomCategory').classList.toggle('hidden',!extra);
- $('reportCustomCategoryLabel').classList.toggle('hidden',!extra);
+ $('reportCategory').classList.remove('hidden');$('reportCategoryLabel').classList.remove('hidden');
+ $('reportCustomCategory').classList.add('hidden');
  $('reportTargetIdLabel').classList.toggle('hidden',$('reportKind').value==='new');
  $('reportNameLabel').innerHTML='情報名 <span class="required">必須</span>';
- $('reportCategory').required=!extra;
- $('reportCustomCategory').required=extra;
+ $('reportCategory').required=true;
+ const msg=$('reportAutoType');
+ msg.textContent=type?'登録先：'+REPORT_TYPES[type]+($('reportKind').value==='info'?'（元の種類を保持）':'（カテゴリーから自動判定）'):
+   'カテゴリーを選択すると、登録先を自動判定します。';
 }
-$('reportEntityType').addEventListener('change',()=>{$('reportNpcId').value='';reportOriginal=null;reportSyncEntityType();reportUpdatePreview();});
-$('reportKind').addEventListener('change',()=>{if($('reportKind').value==='new'){$('reportNpcId').value='';reportCoordinate=null;}reportSyncEntityType();reportUpdatePreview();});
+$('reportKind').addEventListener('change',()=>{
+ if($('reportKind').value==='new'){$('reportNpcId').value='';reportCoordinate=null;reportOriginal=null;}
+ updateReportLists();reportUpdatePreview();
+});
+$('reportCategory').addEventListener('change',()=>{reportSyncEntityType();reportUpdatePreview();});
+
 function reportDraft(){
- const kind=$('reportKind').value,entity=$('reportEntityType').value;
- const name=$('reportName').value.trim(),areaId=$('reportArea').value,category=entity==='npc'?$('reportCategory').value:$('reportCustomCategory').value.trim();
+ const kind=$('reportKind').value,entity=reportChosenType();
+ $('reportEntityType').value=entity;
+ const name=$('reportName').value.trim(),areaId=$('reportArea').value,category=$('reportCategory').value;
  const location=$('reportLocation').value.trim(),memo=$('reportMemo').value.trim(),related=$('reportRelated').value.trim(),img=$('reportImage').value.trim();
  const id=reportNormalizedTargetId($('reportNpcId').value,entity),original=kind==='info'?reportOriginalFor(id,entity):null;
  const issues=[];
  if(!name)issues.push('情報名');if(!areaId)issues.push('エリア');if(!category)issues.push('カテゴリー');
+ if(!entity)issues.push('カテゴリーの所属種類（管理者による設定が必要）');
+ if(kind==='info'&&original&&category!==original.category&&styles[category]?.type!==original.type)issues.push('修正対象と異なる種類のカテゴリーは選択できません');
+ if(kind==='new'&&category&&!Object.prototype.hasOwnProperty.call(REPORT_TYPES,styles[category]?.type))issues.push('管理対象に登録されたカテゴリーを選んでください');
  if(areaId&&!MAPS.some(m=>m.id===areaId))issues.push('エリアが存在しません');
  if(reportCoordinate&&reportCoordinate.mapId!==areaId)issues.push('選択した座標とエリアが一致しません');
  if(kind==='new'&&entity!=='npc'&&!reportCoordinate)issues.push('新規情報の位置（地図から選択）');
@@ -606,7 +641,7 @@ function reportDraft(){
  const mapName=mapNames.get(areaId)||areaId||'未選択';
  const xyNote=reportCoordinate?`【地図画像上の指定位置】マップID: ${reportCoordinate.mapId} / X: ${reportCoordinate.x} / Y: ${reportCoordinate.y}（画像座標・管理者が確認）`:'';
  const memoForForm=[`【報告の種類】${kindLabel}`,`【情報の種類】${entity}`,
-  entity!=='npc'?`【詳細カテゴリー】${category}`:'',
+  category?`【詳細カテゴリー】${category}`:'',
   kind==='info'?`【変更項目】${changed.join(',')}`:'',
   kind==='info'&&id?`【${entity==='npc'?'修正対象NPC ID':'修正対象情報ID'}】${id}`:'',
   kind==='new'||changed.includes('related')?`【関連情報】${related}`:'',
@@ -624,7 +659,7 @@ function reportDraft(){
 const REPORT_PREFILL_FIELDS=['NPC名','エリア名','NPCカテゴリー','出現場所・目印','補足情報','参考画像URL'];
 async function reportLoadPrefill(){
  try{
-  const r=await fetch('form-prefill.json?rev=617',{cache:'no-store'});
+  const r=await fetch('form-prefill.json?rev=618',{cache:'no-store'});
   if(!r.ok)throw Error('設定未公開');const config=await r.json();
   if(!/^https:\/\/docs\.google\.com\/forms\/d\/e\/[A-Za-z0-9_-]+\/viewform/.test(String(config.formUrl||'')))throw Error('フォームURLが無効');
   if(!REPORT_PREFILL_FIELDS.every(k=>/^entry\.\d+$/.test(config.fields?.[k]||'')))throw Error('項目設定が不完全');
@@ -736,7 +771,7 @@ $('mapPickAgain').addEventListener('click',()=>{pickCandidate=null;$('mapPickPan
 $('mapPickCancel').addEventListener('click',()=>setPickMode(false));
 
 function reportUpdatePreview(){
-  renderReportCoord();reportUpdateReference();
+  reportSyncEntityType();renderReportCoord();reportUpdateReference();
   const draft=reportDraft();$('reportPreview').textContent=draft.text;
   const status=$('reportRequired');status.classList.toggle('warn',draft.issues.length>0);
   status.textContent=draft.issues.length?'⚠ 送信前に確認：'+draft.issues.join('・'):'✓ 必須項目は入力済み。送信前確認に進めます。';
