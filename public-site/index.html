@@ -29,7 +29,7 @@
 .cluster-results button{text-align:left}
 .cluster-results button small{display:block;font-size:11px;color:#b7c9db}
 .cluster-panel .cluster-zoom{width:100%}
-#focusSelected:disabled{opacity:.5;cursor:not-allowed}
+
 @media(max-width:820px){.cluster-panel{top:58px;right:7px;max-height:55dvh}.suggestions{max-height:210px}.collection-actions button{min-height:44px}.npc-remove{min-width:44px}}
 
 /* v5.9: accessibility and mobile quick navigation */
@@ -333,9 +333,28 @@ body.report-overlay-active{overflow:hidden}
 .report-duplicate-hints small{display:block;font-size:11px;color:#c2d8e3}
 @media(max-width:820px){.site-menu{margin-left:auto}.site-menu>summary{min-height:44px;padding:10px 12px}.top{align-items:center}.site-menu-panel{position:fixed;right:10px;left:10px;top:var(--site-menu-mobile-top,112px);width:auto;max-height:min(75dvh,610px)}}
 
+
+/* v6.23: one menu control, re-homed into bottom nav on mobile. */
+.desktop-menu-host{display:flex;align-items:center;justify-content:flex-end}
+.site-menu>summary{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:8px 11px;font-size:23px;line-height:1;user-select:none}
+.site-menu>summary:focus-visible{outline:3px solid #ffd58b;outline-offset:2px}
+.mobile-menu-host{display:none}
+@media(max-width:820px){
+  #topInlineForm{display:none!important}
+  .desktop-menu-host{display:none}
+  .mobile-bottom-nav{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.1fr) 52px;gap:5px}
+  .mobile-bottom-nav #mobileReport{background:#e9cf9e;color:#1c2834}
+  .mobile-bottom-nav .mobile-menu-host{display:flex;align-items:stretch;justify-content:stretch;min-width:0}
+  .mobile-bottom-nav .site-menu{margin:0;width:100%;display:flex;align-items:stretch}
+  .mobile-bottom-nav .site-menu>summary{width:100%;min-height:46px;padding:4px 7px;background:#213c56;color:#f4f8fb;border:1px solid #60738a;border-radius:10px;font-size:25px}
+  .mobile-bottom-nav .site-menu[open]>summary{background:#385e70;border-color:#a8dabd}
+  .site-menu-panel{position:fixed;top:auto;bottom:var(--site-menu-mobile-bottom,85px);left:10px;right:10px;width:auto;max-height:min(70dvh,calc(100dvh - 110px));overflow:auto;z-index:70}
+}
+@media(max-width:370px){.mobile-bottom-nav{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.1fr) 46px;gap:4px;padding-left:6px;padding-right:6px}.mobile-bottom-nav button{font-size:10px}}
+
 </style></head><body><a href="#search" class="skip-link">情報検索へスキップ</a>
-<header class="top"><div class="brand"><small>ARCHEAGE CHRONICLES · FAN MAP</small><strong>情報マップ <small style="display:inline;color:#b5c6d5;letter-spacing:0">v6.22</small></strong></div><span id="connectionChip" class="connection-chip is-loading" role="status" aria-live="polite">● データ確認中</span><button class="btn gold" id="topInlineForm" type="button">✉ このページで情報提供</button>
-<details id="siteMenu" class="site-menu"><summary aria-label="使い方・投稿ルールなどの案内を開く"><span aria-hidden="true">☰</span> 案内</summary>
+<header class="top"><div class="brand"><small>ARCHEAGE CHRONICLES · FAN MAP</small><strong>情報マップ <small style="display:inline;color:#b5c6d5;letter-spacing:0">v6.23</small></strong></div><span id="connectionChip" class="connection-chip is-loading" role="status" aria-live="polite">● データ確認中</span><button class="btn gold" id="topInlineForm" type="button">✉ このページで情報提供</button>
+<div id="desktopMenuHost" class="desktop-menu-host"><details id="siteMenu" class="site-menu"><summary aria-label="サイト案内メニューを開く" title="使い方・投稿ルール・このサイトについて"><span aria-hidden="true">☰</span></summary>
  <nav class="site-menu-panel" aria-label="サイト案内">
   <strong>情報マップのご案内</strong>
   <details><summary>使い方</summary><p>① 名前・カテゴリー・エリアで検索する。<br>② 地図のピンを選んで「詳細を確認」。<br>③ 情報が違う場合は詳細から「この情報の位置・内容を報告」。新しい情報は「情報提供」から投稿できます。</p><p>地図はドラッグで移動、PCはホイール・スマホは2本指で拡大できます。</p></details>
@@ -343,7 +362,7 @@ body.report-overlay-active{overflow:hidden}
   <details><summary>このサイトについて</summary><p>ArcheAge ChroniclesのNPC・アイテム・敵・地点の情報を共有する非公式コミュニティマップです。ゲームの更新などによって掲載情報が古くなる場合があります。ゲームの運営会社による公式サービスではありません。</p><p>ゲーム名や画像等の権利はそれぞれの権利者に帰属します。掲載情報には誤りが含まれる場合があります。</p></details>
   <details id="siteNoticeSection" hidden><summary>お知らせ <span id="siteNoticeBadge" aria-hidden="true">●</span></summary><p id="siteNoticeText"></p></details>
  </nav>
-</details></header>
+</details></div></header>
 <div class="layout"><aside class="side"><div><h2>冒険情報マップ</h2><p class="muted">NPC・アイテム・敵などを種類、名前、エリアから検索できます。登録済みの情報を表示します。</p></div><section class="section main-search" id="searchSection"><div class="row"><h3>情報を探す</h3><span id="count" class="note">0件</span></div><div class="mobile-nav"><button class="btn" type="button" id="toMap">↑ マップを表示</button></div><div class="suggest-wrap"><input id="search" type="search" placeholder="名前・場所・アイテム・メモで検索" aria-label="情報検索" autocomplete="off" aria-autocomplete="list" aria-controls="searchSuggestions" aria-expanded="false"><div id="searchSuggestions" role="listbox" aria-label="検索候補" class="suggestions hidden"></div></div><div class="filters-v56"><div class="filters"><select id="kindFilter" aria-label="情報の種類で絞り込み"><option value="">すべての種類</option><option value="npc">🧑 NPC</option><option value="item">💎 アイテム・採集</option><option value="enemy">⚔️ 敵・ボス</option><option value="point">📍 その他の地点</option></select><select id="areaFilter" aria-label="エリアで絞り込み"><option value="">すべてのエリア</option></select></div><div class="map-scope-filter"><label class="map-scope-label" for="onlyCurrentMap"><input id="onlyCurrentMap" type="checkbox"><span>表示中のマップ内だけ検索</span></label><p id="mapSearchStatus" class="map-search-status" role="status" aria-live="polite">検索対象：すべてのエリア</p></div><div class="filters"><select id="category" aria-label="カテゴリー"><option value="">全カテゴリー</option></select><select id="sort" aria-label="並べ替え"><option value="name">名前順</option><option value="category">分類順</option><option value="area">マップ順</option></select></div><div class="filter-actions"><span class="note">ひらがな・カタカナ／全角・半角の違いにも対応</span><button class="btn quick-clear" type="button" id="clearFilters">条件をクリア</button></div></div><div class="pin-display-row"><label for="pinDisplayMode">📍 ピン表示</label><select id="pinDisplayMode" aria-label="ピン表示方法"><option value="full">アイコン＋名前</option><option value="icons">アイコンのみ</option><option value="focus">選択中の情報を強調</option></select></div><div class="pin-display-row pin-size-row"><label for="pinSize">📐 ピンの大きさ</label><select id="pinSize" aria-label="ピンの大きさ"><option value="small">小（おすすめ）</option><option value="medium">中</option><option value="large">大</option></select></div><p class="note pin-size-hint">この端末のブラウザに設定を保存します。マップ切り替えの案内ピンには適用しません。</p><div class="saved-tabs" role="group" aria-label="表示する情報"><button type="button" class="btn" data-mode="all" aria-pressed="true">すべて</button><button type="button" class="btn" data-mode="favorites" aria-pressed="false">★ お気に入り</button><button type="button" class="btn" data-mode="recent" aria-pressed="false">最近見た</button></div><div id="savedNotice" class="saved-notice" role="status" aria-live="polite"></div>
 <div class="collection-actions"><button type="button" class="btn" id="clearFavorites">★ お気に入りを整理</button><button type="button" class="btn" id="clearRecent">履歴をすべて削除</button></div><div id="npcList" class="list"></div><p class="note">カテゴリーをタップして絞り込み（もう一度で解除）</p><div id="legend" class="legend" role="group" aria-label="カテゴリーで絞り込み"></div></section><section class="section map-select" id="mapSelector"><h3>マップを選ぶ</h3><button type="button" class="btn hidden" id="parentMap">← 親マップへ戻る</button><div id="maps" class="map-choices"></div><p class="note">全体図の案内ピンから詳細マップへ移動できます。</p></section><section id="detailSection" class="section hidden"><h3 id="detailTitle">情報の詳細</h3><div id="detail" class="detail"></div></section><section class="section report-section" id="reportSection" aria-label="情報提供・情報修正" role="dialog" aria-modal="true" aria-labelledby="reportPanelTitle" tabindex="-1">
 <div class="report-shell">
@@ -393,7 +412,7 @@ body.report-overlay-active{overflow:hidden}
 <div class="hidden" aria-hidden="true"><button id="sectionInlineForm" type="button"></button><button id="inlinePrepare" type="button"></button><button id="copyInlineMemo" type="button"></button><button id="reviewInlineFields" type="button"></button><button id="reportCopy" type="button"></button></div>
 </section><section class="section"><div class="row"><h3>公開データ</h3><button id="refresh" type="button" class="btn">再取得</button></div><div id="status" class="note" role="status">読み込み中…</div><time id="updatedAt" class="update-time note" aria-live="polite">最終取得：未取得</time><span id="dataMode" class="data-mode" role="status"></span>
 <div id="error" class="error hidden" role="alert"></div></section></aside>
-<div class="map-column"><main class="map" aria-label="ゲームマップ"><div class="toolbar"><div id="mapTitle">輝く海岸（全体）</div><div class="tools"><button class="btn mobile-nav-btn" id="toSearch" type="button" aria-label="検索へ移動">検索へ ↓</button><button class="btn" id="minus" aria-label="縮小">－</button><button class="btn" id="reset">全体</button><button class="btn map-fit-button" id="fitMatches" type="button" aria-label="検索結果の位置に地図を移動" title="今のマップで検索条件に合う情報が見える位置まで地図を移動・拡大します">⌖ 結果へ</button><button class="btn" id="focusSelected" disabled title="選択した情報を中央に表示">📍 選択</button><button class="btn" id="plus" aria-label="拡大">＋</button></div></div><button id="reportPickToggle" class="btn report-pick-toggle" type="button" aria-pressed="false">📌 地図で位置を報告</button><p id="reportPickStatus" class="report-pick-status hidden" role="status" aria-live="polite">地図を1回タップして仮ピンを置いてください。ドラッグ・ピンチ操作では指定されません。</p><div id="clusterPanel" class="cluster-panel hidden" role="region" aria-label="近くにある情報の一覧"></div><div class="viewport" id="viewport"><div class="stage" id="stage"><img id="mapImage" alt="ゲームマップ"><div id="markers"></div><div id="reportDraftPin" class="report-draft-pin pin-teardrop hidden" aria-hidden="true"></div></div></div><div class="foot"><span>ドラッグで移動・ホイールで拡大 <span class="mobile-hint">／ 2本指で拡大</span></span> <span id="mapStats" class="map-stats" role="status" aria-live="off"></span></div></main><section id="pinPreviewPanel" class="pin-preview-panel hidden" role="region" aria-labelledby="pinPreviewTitle" aria-live="polite">
+<div class="map-column"><main class="map" aria-label="ゲームマップ"><div class="toolbar"><div id="mapTitle">輝く海岸（全体）</div><div class="tools"><button class="btn mobile-nav-btn" id="toSearch" type="button" aria-label="検索へ移動">検索へ ↓</button><button class="btn" id="minus" aria-label="縮小">－</button><button class="btn" id="reset">全体</button><button class="btn map-fit-button" id="fitMatches" type="button" aria-label="検索結果の位置に地図を移動" title="今のマップで検索条件に合う情報が見える位置まで地図を移動・拡大します">⌖ 結果へ</button><button class="btn" id="plus" aria-label="拡大">＋</button></div></div><button id="reportPickToggle" class="btn report-pick-toggle" type="button" aria-pressed="false">📌 地図で位置を報告</button><p id="reportPickStatus" class="report-pick-status hidden" role="status" aria-live="polite">地図を1回タップして仮ピンを置いてください。ドラッグ・ピンチ操作では指定されません。</p><div id="clusterPanel" class="cluster-panel hidden" role="region" aria-label="近くにある情報の一覧"></div><div class="viewport" id="viewport"><div class="stage" id="stage"><img id="mapImage" alt="ゲームマップ"><div id="markers"></div><div id="reportDraftPin" class="report-draft-pin pin-teardrop hidden" aria-hidden="true"></div></div></div><div class="foot"><span>ドラッグで移動・ホイールで拡大 <span class="mobile-hint">／ 2本指で拡大</span></span> <span id="mapStats" class="map-stats" role="status" aria-live="off"></span></div></main><section id="pinPreviewPanel" class="pin-preview-panel hidden" role="region" aria-labelledby="pinPreviewTitle" aria-live="polite">
  <div class="pin-preview-heading"><strong id="pinPreviewTitle">情報を選択</strong><span class="pin-preview-label">📍 ピンを選択中</span></div>
  <p id="pinPreviewMeta" class="note"></p>
  <div class="pin-preview-actions"><button type="button" class="btn gold" id="pinPreviewDetails">詳細を確認</button><button type="button" class="btn" id="pinPreviewCancel">キャンセル</button></div>
@@ -406,7 +425,7 @@ body.report-overlay-active{overflow:hidden}
 <div class="report-dialog-actions"><button type="button" class="btn" id="reportReviewClose">入力に戻る</button><button class="btn gold" id="reportReviewForm" type="button">Googleフォームへ進む</button></div>
 <p id="reportReviewFeedback" class="note" role="status" aria-live="polite"></p>
 </dialog>
-<nav class="mobile-bottom-nav" aria-label="スマホの画面移動"><button id="mobileMap" type="button">🗺 地図</button><button id="mobileSearch" type="button">⌕ 情報検索</button><button id="mobileReport" type="button">＋ 情報提供</button></nav>
+<nav class="mobile-bottom-nav" aria-label="スマホの画面移動"><button id="mobileMap" type="button">🗺 地図</button><button id="mobileSearch" type="button">⌕ 情報検索</button><button id="mobileReport" type="button">＋ 情報提供</button><div id="mobileMenuHost" class="mobile-menu-host"></div></nav>
 <script>
 'use strict';
 
@@ -852,13 +871,25 @@ function siteIntroHint(){
  try{if(!localStorage.getItem('archeage-site-guide-seen'))$('siteMenu').classList.add('is-first-time');}catch(e){}
 }
 function siteDismissHint(){ $('siteMenu').classList.remove('is-first-time');try{localStorage.setItem('archeage-site-guide-seen','1');}catch(e){} }
+// v6.23: one accessible menu node, placed in the PC header or mobile bottom bar.
+// Do not clone the menu (duplicate IDs would break notice loading and click handling).
+function siteSyncMenuHost(){
+ const mobile=innerWidth<=820;
+ const host=$(mobile?'mobileMenuHost':'desktopMenuHost');
+ const menu=$('siteMenu');
+ if(menu.parentElement!==host){menu.open=false;host.append(menu);}
+ menu.classList.toggle('site-menu-mobile',mobile);
+}
 function sitePlaceMenu(){
  if(innerWidth>820)return;
- const rect=$('siteMenu').getBoundingClientRect();
- $('siteMenu').style.setProperty('--site-menu-mobile-top',Math.min(innerHeight-160,Math.max(8,rect.bottom+8))+'px');
+ const bar=document.querySelector('.mobile-bottom-nav');
+ if(!bar)return;
+ const offset=Math.max(6,Math.ceil(innerHeight-bar.getBoundingClientRect().top+8));
+ $('siteMenu').style.setProperty('--site-menu-mobile-bottom',offset+'px');
 }
+siteSyncMenuHost();
 $('siteMenu').addEventListener('toggle',()=>{if($('siteMenu').open){siteDismissHint();sitePlaceMenu();}});
-window.addEventListener('resize',()=>{if($('siteMenu').open)sitePlaceMenu();});
+window.addEventListener('resize',()=>{siteSyncMenuHost();if($('siteMenu').open)sitePlaceMenu();});
 siteIntroHint();
 document.addEventListener('pointerdown',e=>{const menu=$('siteMenu');if(menu?.open&&!menu.contains(e.target))menu.open=false;});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('siteMenu')?.open)$('siteMenu').open=false;});
@@ -1133,7 +1164,7 @@ function render(){
   const areaFilter=$('areaFilter'),oldArea=areaFilter.value;areaFilter.replaceChildren(new Option('すべてのエリア',''));MAPS.forEach(m=>areaFilter.append(new Option(m.name,m.id)));areaFilter.value=MAPS.some(m=>m.id===oldArea)?oldArea:'';
   const currentKind=$('kindFilter').value;const categories=[...new Set(npcs.filter(n=>!currentKind||n.type===currentKind).map(n=>n.category))].sort((a,b)=>a.localeCompare(b,'ja'));
   const filter=$('category'),old=filter.value;filter.replaceChildren();filter.append(new Option('全カテゴリー',''));categories.forEach(c=>filter.append(new Option(c,c)));filter.value=categories.includes(old)?old:'';
-  const matches=filtered();if(pinPreviewId&&!matches.some(n=>n.id===pinPreviewId&&n.mapId===mapId))closePinPreview(false);$('count').textContent=matches.length+'件';$('focusSelected').disabled=!npcs.some(n=>n.id===selectedId);
+  const matches=filtered();if(pinPreviewId&&!matches.some(n=>n.id===pinPreviewId&&n.mapId===mapId))closePinPreview(false);$('count').textContent=matches.length+'件';
   const thisMapCount=matches.reduce((count,n)=>count+(n.mapId===mapId?1:0),0);
   $('onlyCurrentMap').checked=mapOnly;
   $('areaFilter').disabled=mapOnly;
@@ -1290,7 +1321,7 @@ $('onlyCurrentMap').addEventListener('change',e=>{
 $('fitMatches').addEventListener('click',fitSearchResults);
 $('parentMap').addEventListener('click',()=>{const p=currentMap()?.parent;if(p&&MAPS.some(m=>m.id===p))showMap(p);});
 $('plus').onclick=()=>zoom(1.25);$('minus').onclick=()=>zoom(.8);$('reset').onclick=fit;
-$('focusSelected').onclick=()=>{const n=npcById.get(selectedId);if(n)focusNpc(n);};
+
 $('refresh').onclick=load;
 $('toMap').onclick=()=>viewport.scrollIntoView({block:'start',behavior:'smooth'});
 $('toSearch').onclick=()=>{$('search').scrollIntoView({block:'center',behavior:'smooth'});$('search').focus({preventScroll:true});};
