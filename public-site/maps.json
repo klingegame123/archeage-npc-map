@@ -9,11 +9,11 @@
     {
       "id": "coast_north",
       "name": "輝く海岸・北岸（詳細）",
-      "image": "images/kagayaku_coast_detail_01.png",
+      "image": "images/kagayakukaigannorth.png",
       "parent": "coast",
       "overviewPoint": {
-        "x": 941.77,
-        "y": 349.77
+        "x": 979.11,
+        "y": 356.83
       }
     },
     {
