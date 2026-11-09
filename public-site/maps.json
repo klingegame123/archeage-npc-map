@@ -29,7 +29,7 @@
     {
       "id": "coast_east",
       "name": "輝く海岸・東",
-      "image": "images/coast_east.png",
+      "image": "images/coast_eastnew.png",
       "parent": "coast",
       "overviewPoint": {
         "x": 1359.03,
