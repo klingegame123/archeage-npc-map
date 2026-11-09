@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLScaV6rv3o_u2tn1eUqM6pHUP_7DpI-XCh6OmEjVRjKXjEkmxQ/viewform",
+  "fields": {
+    "NPC名": "entry.584946800",
+    "エリア名": "entry.570009775",
+    "NPCカテゴリー": "entry.1100233775",
+    "出現場所・目印": "entry.1539749039",
+    "補足情報": "entry.805877642",
+    "参考画像URL": "entry.1421002809"
+  },
+  "categoryChoices": [],
+  "areaChoices": []
+}
