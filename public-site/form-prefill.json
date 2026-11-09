@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLScaV6rv3o_u2tn1eUqM6pHUP_7DpI-XCh6OmEjVRjKXjEkmxQ/viewform",
   "fields": {
     "NPC名": "entry.584946800",
@@ -9,6 +9,21 @@
     "補足情報": "entry.805877642",
     "参考画像URL": "entry.1421002809"
   },
-  "categoryChoices": [],
+  "categoryChoices": [
+    "NPC",
+    "アイテム",
+    "クエスト",
+    "その他",
+    "ボス",
+    "採掘",
+    "商人",
+    "植物",
+    "職人",
+    "敵",
+    "動物",
+    "武器",
+    "宝箱",
+    "防具"
+  ],
   "areaChoices": []
 }
